@@ -1,4 +1,12 @@
+//
+//  CustomDate.swift
+//
+//
+//  Created by Alex Young on 3/25/22.
+//
+
 import Foundation
+
 
 open class QuickooksCustomDateDecoder {
     
