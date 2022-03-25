@@ -53,9 +53,9 @@ open class QuickooksCustomDateDecoder {
     
     public struct Account {
         
-        var ID: String
-        var name : String
-        var balance: String
+        public var ID: String
+        public var name : String
+        public var balance: String
         
         init(ID:String, name:String, balance:String){
             self.ID = ID
