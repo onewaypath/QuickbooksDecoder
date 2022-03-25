@@ -1,5 +1,5 @@
 //
-//  YearToDate.swift (v1.0.4)
+//  YearToDate.swift
 //
 //
 //  Created by Alex Young on 3/25/22.
