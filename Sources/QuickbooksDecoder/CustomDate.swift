@@ -1,8 +1,8 @@
 import Foundation
 
-class QuickooksCustomDateDecoder {
+open class QuickooksCustomDateDecoder {
     
-    static func decodeCashAccounts(with:Data) -> Array<Account> {
+    public static func decodeCashAccounts(with:Data) -> Array<Account> {
         
         var accounts : Array<Account> = []
         accounts.append(Account(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
@@ -51,7 +51,7 @@ class QuickooksCustomDateDecoder {
         return accounts
     }
     
-    struct Account {
+    public struct Account {
         
         var ID: String
         var name : String
