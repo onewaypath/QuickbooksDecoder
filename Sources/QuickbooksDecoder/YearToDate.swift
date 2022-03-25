@@ -1,11 +1,11 @@
 import Foundation
 
-open class QuickooksYearToDateDecoder {
+open class QuickbooksYearToDateDecoder {
     
-    public static func decodeCashAccounts(with:Data) -> Array<Account> {
+    public static func decodeCashAccounts(with:Data) -> Array<QuickbooksAccountOuput> {
         
-        var accounts : Array<Account> = []
-        accounts.append(Account(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
+        var accounts : Array<QuickbooksAccountOuput> = []
+        accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
         do {
                   
 
@@ -32,7 +32,7 @@ open class QuickooksYearToDateDecoder {
                                     accountname = coldata[0].value
                                     accountbalance = coldata[1].value
                                 }
-                                accounts.append(Account(ID: accountid, name:accountname, balance:accountbalance))
+                                accounts.append(QuickbooksAccountOuput(ID: accountid, name:accountname, balance:accountbalance))
                             }
                         }
                             
@@ -50,18 +50,7 @@ open class QuickooksYearToDateDecoder {
         return accounts
     }
     
-    public struct Account {
-        
-        public var ID: String
-        public var name : String
-        public var balance: String
-        
-        init(ID:String, name:String, balance:String){
-            self.ID = ID
-            self.name = name
-            self.balance = balance
-        }
-    }
+    
     
 
 

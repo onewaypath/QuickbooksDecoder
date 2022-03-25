@@ -1,18 +1,21 @@
 import XCTest
 @testable import QuickbooksDecoder
+import Foundation
 
 final class QuickbooksDecoderTests: XCTestCase {
     func testYearToDate() throws {
         
         let data = YearToDateResponse.JSONString.data(using: .utf8)!
-        let accounts = QuickooksYearToDateDecoder.decodeCashAccounts(with: data)
+        let accounts = QuickbooksYearToDateDecoder.decodeCashAccounts(with: data)
         
-        for account in accounts {
-            print ("\(account.name), \(account.ID), \(account.balance) ")
-            
+        XCTAssertEqual(accounts.count, 3)
+        let expected = ["Account Balance", "1365.40", "51.40"]
+        
+        for (key, value) in accounts.enumerated() {
+            print ("\(value.name), \(value.ID), \(value.balance) ")
+            XCTAssertEqual(accounts[key].balance, expected[key])
         }
-        XCTAssertEqual(accounts[1].balance, "1365.40")
-        XCTAssertEqual(accounts[2].balance, "51.40")
+       
 
            }
     
@@ -21,12 +24,14 @@ final class QuickbooksDecoderTests: XCTestCase {
         let data = CustomDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickooksCustomDateDecoder.decodeCashAccounts(with: data)
         
-        for account in accounts {
-            print ("\(account.name), \(account.ID), \(account.balance) ")
-            
+        XCTAssertEqual(accounts.count, 3)
+        let expected = ["Account Balance", "2279.35", "51.41"]
+        
+        for (key, value) in accounts.enumerated() {
+            print ("\(value.name), \(value.ID), \(value.balance) ")
+            XCTAssertEqual(accounts[key].balance, expected[key])
         }
-        XCTAssertEqual(accounts[1].balance, "1365.40")
-        XCTAssertEqual(accounts[2].balance, "51.40")
+        
 
            }
     

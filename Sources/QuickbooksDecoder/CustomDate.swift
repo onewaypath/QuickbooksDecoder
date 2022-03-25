@@ -2,13 +2,16 @@ import Foundation
 
 open class QuickooksCustomDateDecoder {
     
-    public static func decodeCashAccounts(with:Data) -> Array<Account> {
+    public static func decodeCashAccounts(with:Data) -> Array<QuickbooksAccountOuput> {
         
-        var accounts : Array<Account> = []
-        accounts.append(Account(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
+        var accounts : Array<QuickbooksAccountOuput> = []
+        accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
         do {
                   
-
+            // YOUR CODE HERE
+            // please replace this code with your code so that the CustomDate JSON is correctly decoded.
+            
+            /*
             let balancesheet = try JSONDecoder().decode(BalanceSheetModel.self, from: with)
             for row in balancesheet.rows.row
             {
@@ -32,7 +35,7 @@ open class QuickooksCustomDateDecoder {
                                     accountname = coldata[0].value
                                     accountbalance = coldata[1].value
                                 }
-                                accounts.append(Account(ID: accountid, name:accountname, balance:accountbalance))
+                                accounts.append(QuickbooksAccountOuput(ID: accountid, name:accountname, balance:accountbalance))
                             }
                         }
                             
@@ -40,32 +43,23 @@ open class QuickooksCustomDateDecoder {
                         
                     }
                 }
-            }
+            }*/
+            
               } catch {
                    // handle error
                   print(error.localizedDescription)
               }
-
-       
-        
+    
         return accounts
     }
     
-    public struct Account {
-        
-        public var ID: String
-        public var name : String
-        public var balance: String
-        
-        init(ID:String, name:String, balance:String){
-            self.ID = ID
-            self.name = name
-            self.balance = balance
-        }
-    }
+   
     
 
-
+    // YOUR CODE HERE
+    // You need to replace this with the correct decoder model for the CustomDate JSON that is hardcoded in Tests/ResponseData/YearToDateResponse.SWIFT
+    
+    /*
     // MARK: - BalanceSheet
     struct BalanceSheetModel: Codable {
         let header: BalanceSheetHeader
@@ -289,7 +283,8 @@ open class QuickooksCustomDateDecoder {
     enum TypeEnum: String, Codable {
         case data = "Data"
         case section = "Section"
-    }
-
+    }*/
+     
+     
 }
 
