@@ -25,7 +25,7 @@ final class QuickbooksDecoderTests: XCTestCase {
         let accounts = QuickooksCustomDateDecoder.decodeCashAccounts(with: data)
         
         XCTAssertEqual(accounts.count, 3)
-        let expected = ["Account Balance", "2279.35", "51.41"]
+        let expected = ["Account Balance", "2279.35", "51.40"] //=> Not 51.41 It's 51.40 in JSON data
         
         for (key, value) in accounts.enumerated() {
             print ("\(value.name), \(value.ID), \(value.balance) ")

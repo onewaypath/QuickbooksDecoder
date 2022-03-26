@@ -8,6 +8,10 @@
 import Foundation
 
 
+open class QuickooksCustomDateDecoder: QuickbooksYearToDateDecoder { //=> We don't need seperate class unless there is different structure of JSON data
+
+}
+/*
 open class QuickooksCustomDateDecoder {
     
     public static func decodeCashAccounts(with:Data) -> Array<QuickbooksAccountOuput> {
@@ -296,3 +300,4 @@ open class QuickooksCustomDateDecoder {
      
 }
 
+*/
