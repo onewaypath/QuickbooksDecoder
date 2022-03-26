@@ -8,8 +8,8 @@ final class QuickbooksDecoderTests: XCTestCase {
         let data = YearToDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
         
-        XCTAssertEqual(accounts.count, 3)
-        let expected = ["Account Balance", "1365.40", "51.40"]
+        XCTAssertEqual(accounts.count, 2)
+        let expected = ["1365.40", "51.40"]
         
         for (key, value) in accounts.enumerated() {
             print ("\(value.name), \(value.ID), \(value.balance) ")
@@ -24,8 +24,8 @@ final class QuickbooksDecoderTests: XCTestCase {
         let data = CustomDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
         
-        XCTAssertEqual(accounts.count, 3)
-        let expected = ["Account Balance", "2279.35", "51.40"] //=> Not 51.41 It's 51.40 in JSON data
+        XCTAssertEqual(accounts.count, 2)
+        let expected = ["2279.35", "51.40"] 
         
         for (key, value) in accounts.enumerated() {
             print ("\(value.name), \(value.ID), \(value.balance) ")
