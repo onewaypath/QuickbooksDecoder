@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class QuickbooksYearToDateDecoder {
+open class QuickbooksBalanceSheetDecoder {
     
     public static func decodeCashAccounts(with:Data) -> Array<QuickbooksAccountOuput> {
         
