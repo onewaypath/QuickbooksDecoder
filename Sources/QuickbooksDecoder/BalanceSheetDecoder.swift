@@ -12,7 +12,7 @@ open class QuickbooksBalanceSheetDecoder {
     public static func decodeCashAccounts(with:Data) -> Array<QuickbooksAccountOuput> {
         
         var accounts : Array<QuickbooksAccountOuput> = []
-        accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
+        //accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
         do {
                   
 
