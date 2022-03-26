@@ -109,7 +109,8 @@ open class QuickbooksYearToDateDecoder {
     struct BalanceSheetHeader: Codable {
         let reportName: String
         let option: [Option]
-        let dateMacro, reportBasis, startPeriod, currency: String
+        let dateMacro: String? /* Becuase this one is missing in the custom date JSON. So, We've to make it optional.*/
+        let reportBasis, startPeriod, currency: String
         let endPeriod: String
         let time: String
         let summarizeColumnsBy: String
