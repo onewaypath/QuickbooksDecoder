@@ -24,7 +24,7 @@ open class QuickbooksBalanceSheetDecoder {
                     for Fluffyr in Fluffy.rows.row
                     {
                        
-                        if let arr = Fluffyr.rows,let group = Fluffyr.group, group == "BankAccounts"
+                        if let arr = Fluffyr.rows,let group = Fluffyr.group, group == "BankAccounts" || group == "CreditCards"
                         {
                         for Tentacle in arr.row
                         {
