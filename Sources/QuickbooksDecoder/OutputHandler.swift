@@ -6,7 +6,7 @@
 //
 
 
-public struct QuickbooksAccountOuput {
+public struct QuickbooksAccountOuput: Equatable{
     
     public var ID: String
     public var name : String
@@ -17,6 +17,7 @@ public struct QuickbooksAccountOuput {
         self.name = name
         self.balance = balance
     }
+    
 }
 
 extension Array where Element == QuickbooksAccountOuput{

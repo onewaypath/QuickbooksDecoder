@@ -1,5 +1,5 @@
 //
-//  YearToDate.swift
+//  QuickbooksBalanceSheetDecoder.swift
 //
 //
 //  Created by Alex Young on 3/25/22.
@@ -7,50 +7,70 @@
 
 import Foundation
 
-open class QuickbooksYearToDateDecoder {
+open class QuickbooksBalanceSheetDecoder {
     
     public static func decodeCashAccounts(with:Data) -> Array<QuickbooksAccountOuput> {
         
         var accounts : Array<QuickbooksAccountOuput> = []
-        accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
+        //accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
         do {
             let balancesheet = try JSONDecoder().decode(BalanceSheetModel.self, from: with)
-             
-            for row in balancesheet.rows.row
-            {
-                for Fluffy in row.rows.row
-                {
-                    for Fluffyr in Fluffy.rows.row
-                    {
+            
+            for rows in balancesheet.rows.row{
+
+                for Fluffy in rows.rows.row{
+                   
+                    for Fluffyr in Fluffy.rows.row{
                          
-                        if let arr = Fluffyr.rows,let group = Fluffyr.group, group == "BankAccounts"
-                        {
-                        for Tentacle in arr.row
-                        {
-                            if let coldata = Tentacle.colData
-                            {
+                        if let cards = Fluffyr.rows?.row.first(where: {$0.group == "CreditCards"})?.rows?.row{
+                             
+                            for card in cards{
+                                 
+                                let coldata = card.colData
+                                
                                 var accountname = ""
                                 var accountid = ""
                                 var accountbalance = ""
-                                if coldata.count == 2
-                                {
+                               
+                                if coldata.count == 2{
                                     accountid = coldata[0].id ?? ""
                                     accountname = coldata[0].value
                                     accountbalance = coldata[1].value
                                 }
                                 accounts.append(QuickbooksAccountOuput(ID: accountid, name:accountname, balance:accountbalance))
                             }
+                             
+                        }else{
+                           
+                            if let arr = Fluffyr.rows,let group = Fluffyr.group, group == "BankAccounts"{
+                                
+                                for Tentacle in arr.row{
+                                    
+                                    if let coldata = Tentacle.colData{
+                                        
+                                        var accountname = ""
+                                        var accountid = ""
+                                        var accountbalance = ""
+                                       
+                                        if coldata.count == 2{
+                                            accountid = coldata[0].id ?? ""
+                                            accountname = coldata[0].value
+                                            accountbalance = coldata[1].value
+                                        }
+                                        accounts.append(QuickbooksAccountOuput(ID: accountid, name:accountname, balance:accountbalance))
+                                    
+                                    }
+                                }
+                            }
                         }
-                            
-                        }
-                        
                     }
                 }
             }
-              } catch {
-                   // handle error
-                  print(error.localizedDescription)
-              }
+            
+        } catch {
+            
+            print(error.localizedDescription)
+        }
         
         
         return accounts
@@ -287,65 +307,3 @@ open class QuickbooksYearToDateDecoder {
     }
 
 }
-
-fileprivate extension Array where Element == QuickbooksYearToDateDecoder.PurpleRow{
-    
-    
-    func getRows(group: String) -> [QuickbooksYearToDateDecoder.StickyRow]?{
-         
-        for row in self{
-            
-            
-            if row.group == group{
-                  
-                if let row = row.rows.row.getRows(group: group){
-                    
-                    return row
-                }
-
-            }else{
-                
-                if let row = row.rows.row.getRows(group: group){
-                 
-                    return row
-                }
-            }
-        }
-         
-        return nil
-         
-    }
-}
-
-fileprivate extension Array where Element == QuickbooksYearToDateDecoder.FluffyRow{
-     
-    func getRows(group: String) -> [QuickbooksYearToDateDecoder.StickyRow]?{
-        
-        for row in self{
-            
-            if row.group == group{
-                
-                return row.rows.row.first(where: {$0.group == group})?.rows?.row
-               
-            }else{
-                 
-                if let row = row.rows.row.getRows(group: group){
-                    
-                    return row
-                } 
-            }
-        }
-      
-        return nil
-    }
-}
-
-fileprivate extension Array where Element == QuickbooksYearToDateDecoder.TentacledRow{
-     
-    func getRows(group: String) -> [QuickbooksYearToDateDecoder.StickyRow]?{
-        
-        return self.first(where: {$0.group == group})?.rows?.row
-    }
-}
-
-

@@ -6,7 +6,7 @@ final class QuickbooksDecoderTests: XCTestCase {
     func testYearToDate() throws {
         
         let data = YearToDateResponse.JSONString.data(using: .utf8)!
-        let accounts = QuickbooksYearToDateDecoder.decodeCashAccounts(with: data)
+        let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
         
         XCTAssertEqual(accounts.count, 3)
         let expected = ["Account Balance", "1365.40", "51.40"]
@@ -18,20 +18,41 @@ final class QuickbooksDecoderTests: XCTestCase {
     }
     
     func testCustomDate() throws {
-        
-        let data = CustomDateResponse.JSONString.data(using: .utf8)!
+         
+        let data = YearToDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickooksCustomDateDecoder.decodeCashAccounts(with: data)
         
-        XCTAssertEqual(accounts.count, 3)
-        let expected = ["Account Balance", "143733.34", "51.40"] //=> Not 51.41 It's 51.40 in JSON data
+        XCTAssertEqual(accounts.count, 4)
+        var expected : [QuickbooksAccountOuput] = []
+        expected.append(QuickbooksAccountOuput(ID: "51", name: "Chequing (-357)", balance: "1365.40"))
+        expected.append(QuickbooksAccountOuput(ID: "53", name: "One Way Path Legal Services TRUST (-349)", balance: "51.40"))
+        expected.append(QuickbooksAccountOuput(ID: "72", name: "Line of Credit from Personal", balance: "143733.34"))
+        expected.append(QuickbooksAccountOuput(ID: "52", name: "MasterCard (5756)", balance: "43987.86"))
+        
         
         for (key, value) in accounts.enumerated() {
-            
-            print("=============================================")
-            print ("\(value.name), \(value.ID), \(value.balance)")
-            print("=============================================")
-
-//            XCTAssertEqual(accounts[key].balance, expected[key])
+            print ("\(value.name), \(value.ID), \(value.balance) ")
+            XCTAssertEqual(value, expected[key])
+        }
+    }
+    
+    func testingCreditCard() throws {
+         
+        let data = YearToDateResponse.JSONString.data(using: .utf8)!
+        let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
+        
+        XCTAssertEqual(accounts.count, 4)
+        
+        var expected : [QuickbooksAccountOuput] = []
+        expected.append(QuickbooksAccountOuput(ID: "51", name: "Chequing (-357)", balance: "1365.40"))
+        expected.append(QuickbooksAccountOuput(ID: "53", name: "One Way Path Legal Services TRUST (-349)", balance: "51.40"))
+        expected.append(QuickbooksAccountOuput(ID: "72", name: "Line of Credit from Personal", balance: "143733.34"))
+        expected.append(QuickbooksAccountOuput(ID: "52", name: "MasterCard (5756)", balance: "43987.86"))
+        
+        
+        for (key, value) in accounts.enumerated() {
+            print ("\(value.name), \(value.ID), \(value.balance) ")
+            XCTAssertEqual(value, expected[key])
         }
     }
     

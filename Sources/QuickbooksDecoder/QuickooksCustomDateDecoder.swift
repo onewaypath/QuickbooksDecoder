@@ -13,15 +13,16 @@ open class QuickooksCustomDateDecoder{
     public static func decodeCashAccounts(with:Data) -> Array<QuickbooksAccountOuput> {
         
         var accounts : Array<QuickbooksAccountOuput> = []
-        accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
         do {
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromUpperCamelCase
             
             let balancesheet = try decoder.decode(BalanceSheet.self, from: with)
+            
+            accounts.add(from: balancesheet, group: "BankAccounts")
             accounts.add(from: balancesheet, group: "CreditCards")
-             
+            
         }catch{
             
             fatalError(error.localizedDescription)
