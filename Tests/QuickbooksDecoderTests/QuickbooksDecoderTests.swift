@@ -3,17 +3,24 @@ import XCTest
 import Foundation
 
 final class QuickbooksDecoderTests: XCTestCase {
+    
+    
+    
     func testYearToDate() throws {
         
-        let data = YearToDateResponse.JSONString.data(using: .utf8)!
+        let data = CustomDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
         
         XCTAssertEqual(accounts.count, 2)
-        let expected = ["1365.40", "51.40"]
+        var expected : [QuickbooksAccountOuput] = []
+        expected.append(QuickbooksAccountOuput(ID: "51", name: "Chequing (-357)", balance: "2279.35"))
+        expected.append(QuickbooksAccountOuput(ID: "53", name: "One Way Path Legal Services TRUST (-349)", balance: "51.40"))
+        
+        
         
         for (key, value) in accounts.enumerated() {
             print ("\(value.name), \(value.ID), \(value.balance) ")
-            XCTAssertEqual(accounts[key].balance, expected[key])
+            XCTAssertEqual(value, expected[key])
         }
        
 
@@ -24,12 +31,17 @@ final class QuickbooksDecoderTests: XCTestCase {
         let data = CustomDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
         
-        XCTAssertEqual(accounts.count, 2)
-        let expected = ["2279.35", "51.40"] 
+        XCTAssertEqual(accounts.count, 4)
+        var expected : [QuickbooksAccountOuput] = []
+        expected.append(QuickbooksAccountOuput(ID: "51", name: "Chequing (-357)", balance: "2279.35"))
+        expected.append(QuickbooksAccountOuput(ID: "53", name: "One Way Path Legal Services TRUST (-349)", balance: "51.40"))
+        expected.append(QuickbooksAccountOuput(ID: "72", name: "Line of Credit from Personal", balance: "141684.65"))
+        expected.append(QuickbooksAccountOuput(ID: "52", name: "MasterCard (5756)", balance: "43855.74"))
+        
         
         for (key, value) in accounts.enumerated() {
             print ("\(value.name), \(value.ID), \(value.balance) ")
-            XCTAssertEqual(accounts[key].balance, expected[key])
+            XCTAssertEqual(value, expected[key])
         }
         
 

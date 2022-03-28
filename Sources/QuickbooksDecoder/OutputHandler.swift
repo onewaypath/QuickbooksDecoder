@@ -6,7 +6,7 @@
 //
 
 
-public struct QuickbooksAccountOuput {
+public struct QuickbooksAccountOuput : Equatable{
     
     public var ID: String
     public var name : String
@@ -17,4 +17,8 @@ public struct QuickbooksAccountOuput {
         self.name = name
         self.balance = balance
     }
+    
+    public static func == (lhs: QuickbooksAccountOuput, rhs: QuickbooksAccountOuput) -> Bool {
+        return lhs.ID == rhs.ID && lhs.name == rhs.name && lhs.balance == rhs.balance
+        }
 }
