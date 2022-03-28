@@ -15,7 +15,6 @@ open class QuickbooksBalanceSheetDecoder {
         //accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
         do {
             let balancesheet = try JSONDecoder().decode(BalanceSheetModel.self, from: with)
-<<<<<<< HEAD:Sources/QuickbooksDecoder/QuickbooksBalanceSheetDecoder.swift
             
             for rows in balancesheet.rows.row{
 
@@ -29,21 +28,6 @@ open class QuickbooksBalanceSheetDecoder {
                                  
                                 let coldata = card.colData
                                 
-=======
-            for row in balancesheet.rows.row
-            {
-                for Fluffy in row.rows.row
-                {
-                    for Fluffyr in Fluffy.rows.row
-                    {
-                       
-                        if let arr = Fluffyr.rows,let group = Fluffyr.group, group == "BankAccounts" || group == "CreditCards"
-                        {
-                        for Tentacle in arr.row
-                        {
-                            if let coldata = Tentacle.colData
-                            {
->>>>>>> master:Sources/QuickbooksDecoder/BalanceSheetDecoder.swift
                                 var accountname = ""
                                 var accountid = ""
                                 var accountbalance = ""

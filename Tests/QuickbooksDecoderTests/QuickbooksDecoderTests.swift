@@ -16,10 +16,6 @@ final class QuickbooksDecoderTests: XCTestCase {
         expected.append(QuickbooksAccountOuput(ID: "51", name: "Chequing (-357)", balance: "2279.35"))
         expected.append(QuickbooksAccountOuput(ID: "53", name: "One Way Path Legal Services TRUST (-349)", balance: "51.40"))
         
-        let data = YearToDateResponse.JSONString.data(using: .utf8)!
-        let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
-        
-        
         for (key, value) in accounts.enumerated() {
             print ("\(value.name), \(value.ID), \(value.balance) ")
             XCTAssertEqual(value, expected[key])
