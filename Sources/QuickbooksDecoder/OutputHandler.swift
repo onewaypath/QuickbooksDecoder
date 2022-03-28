@@ -6,7 +6,7 @@
 //
 
 
-public struct QuickbooksAccountOuput: Equatable{
+public struct QuickbooksAccountOuput : Equatable{
     
     public var ID: String
     public var name : String

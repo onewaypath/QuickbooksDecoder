@@ -3,17 +3,26 @@ import XCTest
 import Foundation
 
 final class QuickbooksDecoderTests: XCTestCase {
-    func testYearToDate() throws {
+    
+    
+    
+    func testCashAccounts() throws {
+        
+        let data = CustomDateResponse.JSONString.data(using: .utf8)!
+        let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
+        
+        XCTAssertEqual(accounts.count, 2)
+        var expected : [QuickbooksAccountOuput] = []
+        expected.append(QuickbooksAccountOuput(ID: "51", name: "Chequing (-357)", balance: "2279.35"))
+        expected.append(QuickbooksAccountOuput(ID: "53", name: "One Way Path Legal Services TRUST (-349)", balance: "51.40"))
         
         let data = YearToDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
         
-        XCTAssertEqual(accounts.count, 3)
-        let expected = ["Account Balance", "1365.40", "51.40"]
         
         for (key, value) in accounts.enumerated() {
             print ("\(value.name), \(value.ID), \(value.balance) ")
-            XCTAssertEqual(accounts[key].balance, expected[key])
+            XCTAssertEqual(value, expected[key])
         }
     }
     
