@@ -21,7 +21,7 @@ open class QuickooksCustomDateDecoder{
             
             let balancesheet = try decoder.decode(BalanceSheet.self, from: with)
             accounts.add(from: balancesheet, group: "CreditCards")
-            
+             
         }catch{
             
             fatalError(error.localizedDescription)

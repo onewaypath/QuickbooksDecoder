@@ -22,21 +22,7 @@ open class QuickbooksYearToDateDecoder {
                 {
                     for Fluffyr in Fluffy.rows.row
                     {
-                        
-                        if let array = Fluffyr.rows, let group = Fluffyr.group, group == "CreditCards"{
-                             
-                        
-                            for row in array.row{
-                                
-                                if let columnData = row.colData,
-                                   columnData.count == 2{
-                                    
-                                    print("Hey: \(columnData)")
-                                    print("==================")
-                                }
-                            }
-                        }
-                       
+                         
                         if let arr = Fluffyr.rows,let group = Fluffyr.group, group == "BankAccounts"
                         {
                         for Tentacle in arr.row
