@@ -6,7 +6,7 @@ final class QuickbooksDecoderTests: XCTestCase {
     
     
     
-    func testYearToDate() throws {
+    func testCashAccounts() throws {
         
         let data = CustomDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
@@ -26,7 +26,7 @@ final class QuickbooksDecoderTests: XCTestCase {
 
            }
     
-    func testCustomDate() throws {
+    func testCashandCreditAccounts() throws {
         
         let data = CustomDateResponse.JSONString.data(using: .utf8)!
         let accounts = QuickbooksBalanceSheetDecoder.decodeCashAccounts(with: data)
