@@ -18,3 +18,15 @@ public struct QuickbooksAccountOuput {
         self.balance = balance
     }
 }
+
+extension Array where Element == QuickbooksAccountOuput{
+    
+    mutating func add(from sheet: QuickooksCustomDateDecoder.BalanceSheet, group: String){
+          
+        if let accounts = sheet.rows.row.getRows(group: group)?.quickBooksAccounts{
+               
+            self.append(contentsOf: accounts)
+        }
+        
+    }
+}

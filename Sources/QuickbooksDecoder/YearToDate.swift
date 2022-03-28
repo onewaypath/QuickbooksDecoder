@@ -14,15 +14,28 @@ open class QuickbooksYearToDateDecoder {
         var accounts : Array<QuickbooksAccountOuput> = []
         accounts.append(QuickbooksAccountOuput(ID: "AccountID", name:"Account Name", balance:"Account Balance"))
         do {
-                  
-
             let balancesheet = try JSONDecoder().decode(BalanceSheetModel.self, from: with)
+             
             for row in balancesheet.rows.row
             {
                 for Fluffy in row.rows.row
                 {
                     for Fluffyr in Fluffy.rows.row
                     {
+                        
+                        if let array = Fluffyr.rows, let group = Fluffyr.group, group == "CreditCards"{
+                             
+                        
+                            for row in array.row{
+                                
+                                if let columnData = row.colData,
+                                   columnData.count == 2{
+                                    
+                                    print("Hey: \(columnData)")
+                                    print("==================")
+                                }
+                            }
+                        }
                        
                         if let arr = Fluffyr.rows,let group = Fluffyr.group, group == "BankAccounts"
                         {
@@ -288,3 +301,65 @@ open class QuickbooksYearToDateDecoder {
     }
 
 }
+
+fileprivate extension Array where Element == QuickbooksYearToDateDecoder.PurpleRow{
+    
+    
+    func getRows(group: String) -> [QuickbooksYearToDateDecoder.StickyRow]?{
+         
+        for row in self{
+            
+            
+            if row.group == group{
+                  
+                if let row = row.rows.row.getRows(group: group){
+                    
+                    return row
+                }
+
+            }else{
+                
+                if let row = row.rows.row.getRows(group: group){
+                 
+                    return row
+                }
+            }
+        }
+         
+        return nil
+         
+    }
+}
+
+fileprivate extension Array where Element == QuickbooksYearToDateDecoder.FluffyRow{
+     
+    func getRows(group: String) -> [QuickbooksYearToDateDecoder.StickyRow]?{
+        
+        for row in self{
+            
+            if row.group == group{
+                
+                return row.rows.row.first(where: {$0.group == group})?.rows?.row
+               
+            }else{
+                 
+                if let row = row.rows.row.getRows(group: group){
+                    
+                    return row
+                } 
+            }
+        }
+      
+        return nil
+    }
+}
+
+fileprivate extension Array where Element == QuickbooksYearToDateDecoder.TentacledRow{
+     
+    func getRows(group: String) -> [QuickbooksYearToDateDecoder.StickyRow]?{
+        
+        return self.first(where: {$0.group == group})?.rows?.row
+    }
+}
+
+
